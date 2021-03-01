@@ -1,8 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace SimpleTaskManager.Migrations
 {
-    public partial class Init : Migration
+    public partial class HerokuInit : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -10,9 +11,9 @@ namespace SimpleTaskManager.Migrations
                 name: "TodoTypes",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -23,14 +24,14 @@ namespace SimpleTaskManager.Migrations
                 name: "Todos",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
-                    TodoTypeId = table.Column<int>(type: "int", nullable: false),
-                    StartDate = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    StartAt = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    FinishDate = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    FinishAt = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "character varying(40)", maxLength: 40, nullable: false),
+                    TodoTypeId = table.Column<int>(type: "integer", nullable: false),
+                    StartDate = table.Column<string>(type: "text", nullable: false),
+                    StartAt = table.Column<string>(type: "text", nullable: false),
+                    FinishDate = table.Column<string>(type: "text", nullable: false),
+                    FinishAt = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {

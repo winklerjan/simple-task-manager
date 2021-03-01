@@ -27,7 +27,7 @@ namespace SimpleTaskManager
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews().AddNewtonsoftJson();
-            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Config.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(Config.GetConnectionString("DefaultConnection")));
             services.AddTransient<ITodoService, TodoService>();
             services.AddTransient<ITodoTypeService, TodoTypeService>();
         }
