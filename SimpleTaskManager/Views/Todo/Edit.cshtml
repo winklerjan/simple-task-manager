@@ -1,0 +1,57 @@
+﻿@{ 
+    Layout = "_Layout";
+    ViewData["Title"] = "Edit Task";
+    }
+@model SimpleTaskManager.Models.ViewModels.EditViewModel
+
+    <h3>Update task '@Model.Todo.Name'</h3>
+    <form asp-action="update" method="post">
+        <div>
+            <table class="table table-borderless">
+                <tr>
+                    <td>
+                        <label for="name" class="font-weight-bold">Task name:</label>
+                    </td>
+                    <td>
+                        <input type="text" name="name" value="@Model.Todo.Name" required />
+                    </td>
+                    <td>
+                        <label for="todo_type" class="font-weight-bold">Type:</label>
+                    </td>
+                    <td>
+                        <select id="todo_type" name="todoTypeId">
+                            @foreach (var todoType in Model.TodoTypes)
+                            {
+                                if (todoType == Model.Todo.TodoType)
+                                {
+                                    <option selected value="@todoType.Id">@todoType.Name</option>
+                                }
+                                else
+                                {
+                                    <option value="@todoType.Id">@todoType.Name</option>
+                                }
+                            }
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="start_date" class="font-weight-bold">Started at:</label>
+                    </td>
+                    <td>
+                        <input type="date" id="start_date" name="startDate" value="@Model.Todo.StartDate" required>
+                        <input type="time" id="start_at" name="startAt" value="@Model.Todo.StartAt" required>
+                    </td>
+                    <td>
+                        <label for="finish_date" class="font-weight-bold">Finished at:</label>
+                    </td>
+                    <td>
+                        <input type="date" id="finish_date" name="finishDate" value="@Model.Todo.FinishDate" required>
+                        <input type="time" id="finish_at" name="finishAt" value="@Model.Todo.FinishAt" required>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <input type="hidden" name="id" value="@Model.Todo.Id" />
+        <button type="submit">Submit</button>
+    </form>
