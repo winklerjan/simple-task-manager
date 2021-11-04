@@ -43,3 +43,14 @@ button {
 .text_input {
     padding-left: 10px;
 }
+
+.pagination-container {
+    width: 100%;
+    border: 1px solid lightgrey;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

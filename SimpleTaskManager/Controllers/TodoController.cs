@@ -23,11 +23,21 @@ namespace SimpleTaskManager.Controllers
 
         [HttpGet("")]
         [HttpGet("index")]
-        public async Task <IActionResult> Index(string sortBy)
+        public async Task <IActionResult> Index(string sortBy, int page = 1)
         {
-            var todos = await TodoService.GetAllAsync(sortBy);
-            var todoTypes = await TodoTypeService.GetAllAsync();
-            var model = new IndexViewModel { Todos = todos, TodoTypes = todoTypes };
+            const int PageSize = 2;
+            List<Todo> todos = await TodoService.GetAllAsync(sortBy);
+            int count = todos.Count;
+
+            List<Todo> paginatedTodos = todos.Skip((page -1) * PageSize).Take(PageSize).ToList();
+
+            this.ViewBag.MaxPage = (count / PageSize) - (count % PageSize == 0 ? 1 : 0);
+
+            this.ViewBag.Page = page;
+
+            List<TodoType> todoTypes = await TodoTypeService.GetAllAsync();
+
+            IndexViewModel model = new IndexViewModel { Todos = paginatedTodos, TodoTypes = todoTypes };
 
             return View(model);
         }
