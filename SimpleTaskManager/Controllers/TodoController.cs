@@ -25,7 +25,7 @@ namespace SimpleTaskManager.Controllers
         [HttpGet("index")]
         public async Task <IActionResult> Index(string sortBy, int page = 1)
         {
-            const int PageSize = 2;
+            const int PageSize = 15;
             List<Todo> todos = await TodoService.GetAllAsync(sortBy);
             int count = todos.Count;
 
